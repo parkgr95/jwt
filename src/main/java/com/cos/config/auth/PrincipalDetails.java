@@ -13,15 +13,9 @@ public class PrincipalDetails implements UserDetails {
 
     private User user;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        user.getRoleList().forEach(role -> {
-            authorities.add(() -> role);
-        });
-        return authorities;
+    public User getUser() {
+        return user;
     }
-
     @Override
     public String getPassword() {
         return user.getPassword();
@@ -50,5 +44,14 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        user.getRoleList().forEach(role -> {
+            authorities.add(() -> role);
+        });
+        return authorities;
     }
 }
